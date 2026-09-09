@@ -7,10 +7,10 @@ import MasVideos from "@/components/MasVideos";
 import Santoral from "@/components/Santoral";
 import NavBar from "@/components/NavBar";
 import AccionesComunidad from "@/components/AccionesComunidad";
-import { getChannelVideos } from "@/lib/youtube";
+import { getChannelVideos, type YoutubeVideo } from "@/lib/youtube";
 
 export default async function Home() {
-  let videos;
+  let videos: YoutubeVideo[];
 
   try {
     videos = await getChannelVideos();
