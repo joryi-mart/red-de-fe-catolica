@@ -1,10 +1,10 @@
 import { getLecturaDelDia } from "@/lib/lecturaDelDia";
 
-export default async function LecturaDelDia() {
+export default async function LecturaDelDia({ fecha }: { fecha?: string }) {
   let lectura;
 
   try {
-    lectura = await getLecturaDelDia();
+    lectura = await getLecturaDelDia(fecha);
   } catch {
     return null;
   }

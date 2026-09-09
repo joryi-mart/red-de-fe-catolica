@@ -23,8 +23,9 @@ function getFechaHoy(): string {
   return formatter.format(new Date());
 }
 
-export async function getLecturaDelDia(): Promise<LecturaDelDia> {
-  const fecha = getFechaHoy();
+export async function getLecturaDelDia(
+  fecha: string = getFechaHoy()
+): Promise<LecturaDelDia> {
   const fuenteUrl = `https://www.aciprensa.com/calendario/${fecha}`;
 
   const res = await fetch(fuenteUrl, {

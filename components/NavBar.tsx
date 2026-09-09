@@ -4,6 +4,7 @@ const ENLACES = [
   { href: "#video", label: "Video" },
   { href: "#mas-videos", label: "Más videos" },
   { href: "#quienes-somos", label: "Quiénes somos" },
+  { href: "/lectura", label: "Buscar por fecha" },
 ];
 
 export default function NavBar() {

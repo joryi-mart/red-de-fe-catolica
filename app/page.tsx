@@ -27,9 +27,9 @@ export default async function Home() {
           alt="Red de Fe Católica"
           className="h-48 w-full object-cover sm:h-64 md:h-80"
         />
-        <h2 className="absolute inset-x-0 bottom-6 text-center text-2xl font-extrabold text-white drop-shadow-lg sm:text-3xl">
+        <h1 className="absolute inset-x-0 bottom-6 text-center text-2xl font-extrabold text-white drop-shadow-lg sm:text-3xl">
           Red de Fe Católica
-        </h2>
+        </h1>
       </div>
 
       <NavBar />
