@@ -5,6 +5,9 @@ const ENLACES = [
   { href: "#mas-videos", label: "Más videos" },
   { href: "#quienes-somos", label: "Quiénes somos" },
   { href: "/lectura", label: "Buscar por fecha" },
+  { href: "/videos", label: "Videos por tema" },
+  { href: "/oraciones", label: "Oraciones" },
+  { href: "/via-crucis", label: "Vía Crucis" },
 ];
 
 export default function NavBar() {

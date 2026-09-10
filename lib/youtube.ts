@@ -48,20 +48,21 @@ export async function getChannelData(): Promise<ChannelData> {
   };
 }
 
-export async function getChannelVideos(maxResults = 13): Promise<YoutubeVideo[]> {
+export async function getPlaylistVideos(
+  playlistId: string,
+  maxResults = 13
+): Promise<YoutubeVideo[]> {
   const apiKey = process.env.YOUTUBE_API_KEY;
 
   if (!apiKey) {
     throw new Error("Falta configurar YOUTUBE_API_KEY en .env.local");
   }
 
-  const { uploadsPlaylistId } = await getChannelData();
-
-  const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=${maxResults}&playlistId=${uploadsPlaylistId}&key=${apiKey}`;
+  const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=${maxResults}&playlistId=${playlistId}&key=${apiKey}`;
   const res = await fetch(url, { next: { revalidate: 1800 } });
 
   if (!res.ok) {
-    throw new Error("No se pudieron cargar los videos del canal");
+    throw new Error("No se pudieron cargar los videos de la lista");
   }
 
   const data = await res.json();
@@ -88,6 +89,50 @@ export async function getChannelVideos(maxResults = 13): Promise<YoutubeVideo[]>
         item.snippet?.thumbnails?.default?.url ??
         "",
       publishedAt: item.snippet?.publishedAt ?? "",
+    }));
+}
+
+export async function getChannelVideos(maxResults = 13): Promise<YoutubeVideo[]> {
+  const { uploadsPlaylistId } = await getChannelData();
+  return getPlaylistVideos(uploadsPlaylistId, maxResults);
+}
+
+export type Playlist = {
+  id: string;
+  title: string;
+  itemCount: number;
+};
+
+export async function getPlaylists(): Promise<Playlist[]> {
+  const apiKey = process.env.YOUTUBE_API_KEY;
+
+  if (!apiKey) {
+    throw new Error("Falta configurar YOUTUBE_API_KEY en .env.local");
+  }
+
+  const { id: channelId } = await getChannelData();
+
+  const url = `https://www.googleapis.com/youtube/v3/playlists?part=snippet,contentDetails&channelId=${channelId}&maxResults=25&key=${apiKey}`;
+  const res = await fetch(url, { next: { revalidate: 3600 } });
+
+  if (!res.ok) {
+    throw new Error("No se pudieron cargar las listas de reproducción");
+  }
+
+  const data = await res.json();
+
+  type PlaylistItem = {
+    id: string;
+    snippet?: { title?: string };
+    contentDetails?: { itemCount?: number };
+  };
+
+  return ((data.items ?? []) as PlaylistItem[])
+    .filter((item) => (item.contentDetails?.itemCount ?? 0) > 0)
+    .map((item) => ({
+      id: item.id,
+      title: item.snippet?.title ?? "",
+      itemCount: item.contentDetails?.itemCount ?? 0,
     }));
 }
 
