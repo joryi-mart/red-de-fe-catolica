@@ -36,11 +36,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.6,
     },
-    {
-      url: `${SITE_URL}/santoral`,
-      lastModified: ahora,
-      changeFrequency: "daily",
-      priority: 0.8,
-    },
   ];
 }

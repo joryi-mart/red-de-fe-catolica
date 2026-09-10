@@ -1,10 +1,10 @@
 import { getSantoral } from "@/lib/santoral";
 
-export default async function Santoral({ fecha }: { fecha?: string }) {
+export default async function Santoral() {
   let santoral;
 
   try {
-    santoral = await getSantoral(fecha);
+    santoral = await getSantoral();
   } catch {
     return null;
   }

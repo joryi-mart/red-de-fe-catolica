@@ -1,5 +1,4 @@
 import * as cheerio from "cheerio";
-import { getFechaHoy } from "@/lib/fecha";
 
 export type Santo = {
   nombre: string;
@@ -12,13 +11,11 @@ export type Santoral = {
   santos: Santo[];
 };
 
-export async function getSantoral(
-  fecha: string = getFechaHoy()
-): Promise<Santoral> {
-  const [, mesTexto, diaTexto] = fecha.split("-");
-  const dia = Number(diaTexto);
-  const mes = Number(mesTexto);
-  const url = `https://www.aciprensa.com/santos?day=${dia}&month=${mes}`;
+// ACI Prensa no permite pedir el santoral de una fecha distinta a la de
+// hoy (ignora los parámetros day/month), así que esta función siempre
+// trae el santo del día actual.
+export async function getSantoral(): Promise<Santoral> {
+  const url = "https://www.aciprensa.com/santos";
 
   const res = await fetch(url, {
     headers: { "User-Agent": "Mozilla/5.0" },
