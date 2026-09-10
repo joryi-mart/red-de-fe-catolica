@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import LecturaDelDia from "@/components/LecturaDelDia";
+import Santoral from "@/components/Santoral";
 import BuscarFecha from "@/components/BuscarFecha";
 import { getFechaHoy } from "@/lib/fecha";
 
 export const metadata: Metadata = {
-  title: "Lectura del día por fecha",
+  title: "Historia de los santos por fecha",
   description:
-    "Busca la lectura católica, el evangelio y el salmo de cualquier día del calendario litúrgico.",
+    "Busca qué santo se celebra en cualquier fecha del año y lee su historia.",
 };
 
-export default async function LecturaPorFecha({
+export default async function SantoralPorFecha({
   searchParams,
 }: {
   searchParams: Promise<{ fecha?: string }>;
@@ -20,19 +20,19 @@ export default async function LecturaPorFecha({
   return (
     <main className="flex flex-1 flex-col py-8">
       <h1 className="px-4 text-center text-2xl font-extrabold">
-        Buscar lectura por fecha
+        Historia de los santos
       </h1>
 
       <div className="mt-6">
         <BuscarFecha
           fecha={fecha}
-          accion="/lectura"
-          etiqueta="Ver la lectura de otro día:"
+          accion="/santoral"
+          etiqueta="Ver el santo de otra fecha:"
         />
       </div>
 
       <div className="mx-auto w-full max-w-3xl px-4 pb-8">
-        <LecturaDelDia fecha={fecha} />
+        <Santoral fecha={fecha} />
       </div>
     </main>
   );

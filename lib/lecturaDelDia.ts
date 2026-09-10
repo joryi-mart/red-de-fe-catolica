@@ -1,4 +1,5 @@
 import * as cheerio from "cheerio";
+import { getFechaHoy } from "@/lib/fecha";
 
 export type Lectura = {
   titulo: string;
@@ -12,16 +13,6 @@ export type LecturaDelDia = {
   lecturas: Lectura[];
   fuenteUrl: string;
 };
-
-function getFechaHoy(): string {
-  const formatter = new Intl.DateTimeFormat("en-CA", {
-    timeZone: "America/Santo_Domingo",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  });
-  return formatter.format(new Date());
-}
 
 export async function getLecturaDelDia(
   fecha: string = getFechaHoy()

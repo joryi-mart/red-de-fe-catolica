@@ -1,12 +1,20 @@
-export default function BuscarFecha({ fecha }: { fecha: string }) {
+export default function BuscarFecha({
+  fecha,
+  accion,
+  etiqueta,
+}: {
+  fecha: string;
+  accion: string;
+  etiqueta: string;
+}) {
   return (
     <form
-      action="/lectura"
+      action={accion}
       method="get"
       className="mx-auto flex w-full max-w-5xl flex-wrap items-center justify-center gap-3 px-4 pb-4"
     >
       <label htmlFor="fecha" className="text-sm font-semibold">
-        Ver la lectura de otro día:
+        {etiqueta}
       </label>
       <input
         type="date"

@@ -1,4 +1,5 @@
 import * as cheerio from "cheerio";
+import { getFechaHoy } from "@/lib/fecha";
 
 export type Santo = {
   nombre: string;
@@ -11,20 +12,12 @@ export type Santoral = {
   santos: Santo[];
 };
 
-function getFechaHoy(): { dia: number; mes: number } {
-  const formatter = new Intl.DateTimeFormat("en-CA", {
-    timeZone: "America/Santo_Domingo",
-    day: "numeric",
-    month: "numeric",
-  });
-  const partes = formatter.formatToParts(new Date());
-  const dia = Number(partes.find((p) => p.type === "day")?.value);
-  const mes = Number(partes.find((p) => p.type === "month")?.value);
-  return { dia, mes };
-}
-
-export async function getSantoral(): Promise<Santoral> {
-  const { dia, mes } = getFechaHoy();
+export async function getSantoral(
+  fecha: string = getFechaHoy()
+): Promise<Santoral> {
+  const [, mesTexto, diaTexto] = fecha.split("-");
+  const dia = Number(diaTexto);
+  const mes = Number(mesTexto);
   const url = `https://www.aciprensa.com/santos?day=${dia}&month=${mes}`;
 
   const res = await fetch(url, {

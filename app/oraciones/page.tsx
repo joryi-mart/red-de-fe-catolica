@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Oraciones católicas",
   description:
-    "Padre Nuestro, Ave María, Credo y cómo rezar el Santo Rosario completo, con los misterios de cada día.",
+    "Padre Nuestro, Ave María, Credo, cómo rezar el Santo Rosario y la Coronilla a la Divina Misericordia completa.",
 };
 
 const MISTERIOS = [
@@ -151,6 +151,43 @@ Amén.`}
               </div>
             ))}
           </div>
+        </section>
+
+        <section className="rounded-lg border-t-4 border-amber-700 bg-white p-5 shadow-sm dark:bg-zinc-900">
+          <h2 className="text-xl font-bold">
+            Coronilla a la Divina Misericordia
+          </h2>
+          <p className="mt-3 text-sm text-zinc-500">
+            Se reza usando las cuentas del Rosario, de preferencia a las 3:00
+            p.m., la Hora de la Misericordia.
+          </p>
+
+          <ol className="mt-4 list-decimal space-y-3 pl-5 text-sm leading-relaxed">
+            <li>Señal de la Cruz, un Padre Nuestro, un Ave María y el Credo.</li>
+            <li>
+              En las cuentas grandes (una vez por cada década):
+              <blockquote className="mt-1 border-l-2 border-amber-700 pl-3 italic">
+                Padre Eterno, te ofrezco el Cuerpo y la Sangre, Alma y
+                Divinidad de tu amadísimo Hijo, Nuestro Señor Jesucristo, en
+                propiciación por nuestros pecados y los del mundo entero.
+              </blockquote>
+            </li>
+            <li>
+              En las diez cuentas pequeñas de cada década:
+              <blockquote className="mt-1 border-l-2 border-amber-700 pl-3 italic">
+                Por su dolorosa Pasión, ten misericordia de nosotros y del
+                mundo entero.
+              </blockquote>
+            </li>
+            <li>Se repiten los pasos 2 y 3 hasta completar las cinco décadas.</li>
+            <li>
+              Para terminar, tres veces:
+              <blockquote className="mt-1 border-l-2 border-amber-700 pl-3 italic">
+                Dios Santo, Dios Fuerte, Dios Inmortal, ten piedad de
+                nosotros y del mundo entero.
+              </blockquote>
+            </li>
+          </ol>
         </section>
       </div>
     </main>

@@ -8,6 +8,7 @@ const ENLACES = [
   { href: "/videos", label: "Videos por tema" },
   { href: "/oraciones", label: "Oraciones" },
   { href: "/via-crucis", label: "Vía Crucis" },
+  { href: "/santoral", label: "Historia de los santos" },
 ];
 
 export default function NavBar() {
