@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { revalidatePath } from "next/cache";
 import { agregarTestimonio, getTestimoniosAprobados } from "@/lib/testimonios";
+import { getTestimoniosVideo, type YoutubeVideo } from "@/lib/youtube";
 
 export const metadata: Metadata = {
   title: "Testimonios",
@@ -23,6 +24,13 @@ async function enviarTestimonio(formData: FormData) {
 export default async function Testimonios() {
   const testimonios = await getTestimoniosAprobados();
 
+  let videos: YoutubeVideo[];
+  try {
+    videos = await getTestimoniosVideo();
+  } catch {
+    videos = [];
+  }
+
   return (
     <main className="flex flex-1 flex-col py-8">
       <h1 className="px-4 text-center text-2xl font-extrabold">
@@ -31,6 +39,31 @@ export default async function Testimonios() {
       <p className="mx-auto mt-2 max-w-2xl px-4 text-center text-sm text-zinc-500">
         Historias reales de fe de nuestra comunidad.
       </p>
+
+      {videos.length > 0 && (
+        <section className="mx-auto mt-8 w-full max-w-5xl px-4">
+          <p className="text-xs font-bold uppercase tracking-wide text-amber-700">
+            Testimonios en video
+          </p>
+          <h2 className="text-xl font-bold">Del canal Dios te habla</h2>
+          <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {videos.map((video) => (
+              <div
+                key={video.id}
+                className="aspect-video w-full overflow-hidden rounded-lg bg-black shadow-md"
+              >
+                <iframe
+                  className="h-full w-full"
+                  src={`https://www.youtube.com/embed/${video.id}`}
+                  title={video.title}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       <div className="mx-auto mt-8 w-full max-w-xl px-4">
         <form

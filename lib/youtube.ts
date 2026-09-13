@@ -136,6 +136,23 @@ export async function getPlaylists(): Promise<Playlist[]> {
     }));
 }
 
+export async function getTestimoniosVideo(cantidad = 4): Promise<YoutubeVideo[]> {
+  const playlists = await getPlaylists();
+  const lista = playlists.find(
+    (p) => p.title.trim().toLowerCase() === "dios te habla"
+  );
+
+  if (!lista) return [];
+
+  const videos = await getPlaylistVideos(lista.id, 50);
+
+  // Se mezclan y se eligen algunos al azar para que la seccion de
+  // testimonios cambie sola cada vez que se vuelve a generar la pagina
+  // (cada 30 minutos, por el revalidate de getPlaylistVideos).
+  const mezclados = [...videos].sort(() => Math.random() - 0.5);
+  return mezclados.slice(0, cantidad);
+}
+
 export type LiveVideo = {
   id: string;
   title: string;
