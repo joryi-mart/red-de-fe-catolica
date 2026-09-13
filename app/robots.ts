@@ -5,6 +5,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
+      disallow: "/testimonios/admin",
     },
     sitemap: "https://red-de-fe-catolica.vercel.app/sitemap.xml",
   };

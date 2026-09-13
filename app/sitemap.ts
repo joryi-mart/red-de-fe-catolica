@@ -36,5 +36,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.6,
     },
+    {
+      url: `${SITE_URL}/testimonios`,
+      lastModified: ahora,
+      changeFrequency: "weekly",
+      priority: 0.7,
+    },
   ];
 }
